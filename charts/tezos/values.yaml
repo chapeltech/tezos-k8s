@@ -111,6 +111,15 @@ accounts: {}
 #       - {}
 #       - {}
 
+nodes:
+  tezos-regular-node:
+    storage_size: 15Gi
+    instances:
+      - is_bootstrap_node: false
+        config:
+          shell:
+            history_mode: rolling
+
 # Define and use external remote signers.
 # Bakers automatically use signers when configured.
 signers: {}
