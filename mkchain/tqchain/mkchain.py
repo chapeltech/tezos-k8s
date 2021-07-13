@@ -127,14 +127,14 @@ def validate_args(args):
         exit(1)
 
 
-def node_config(name, baker, n):
+def node_config(name, n, is_baker):
     ret = {
         "is_bootstrap_node": False,
         "config": {
             "shell": {"history_mode": "rolling"},
         },
     }
-    if baker:
+    if is_baker:
         ret["bake_using_account"] = f"{name}-{n}"
         if n < 2:
             ret["is_bootstrap_node"] = True
@@ -232,7 +232,7 @@ def main():
             "runs": ["baker", "endorser"],
             "storage_size": "15Gi",
             "instances": [
-                node_config(BAKER_NODE_NAME, True, n)
+                node_config(BAKER_NODE_NAME, n, is_baker=True)
                 for n in range(args.number_of_bakers)
             ],
         },
@@ -242,7 +242,7 @@ def main():
         creation_nodes[REGULAR_NODE_NAME] = {
             "storage_size": "15Gi",
             "instances": [
-                node_config(REGULAR_NODE_NAME, False, n)
+                node_config(REGULAR_NODE_NAME, n, is_baker=False)
                 for n in range(args.number_of_nodes)
             ],
         }

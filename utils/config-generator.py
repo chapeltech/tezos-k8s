@@ -27,8 +27,7 @@ BAKING_NODES = {}
 
 for cl, val in NODES.items():
     if val != None:
-        i = 0
-        for inst in val["instances"]:
+        for i, inst in enumerate(val["instances"]):
             name = f"{cl}-{i}"
             ALL_NODES[name] = inst
             if name == MY_POD_NAME:
@@ -36,7 +35,6 @@ for cl, val in NODES.items():
             if "runs" in val:
                 if "baker" in val["runs"]:
                     BAKING_NODES[name] = inst
-            i += 1
 
 if MY_POD_TYPE == "signing":
     MY_POD_CONFIG = SIGNERS[MY_POD_NAME]
