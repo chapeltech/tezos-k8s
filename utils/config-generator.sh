@@ -11,8 +11,12 @@ set -e
 python3 /config-generator.py "$@"
 set +e
 
+#
+# Generate the tezedge configuration file:
+
 cat > /etc/tezos/tezedge.conf <<EOM
---network=sandbox
+--network=custom
+--custom-network-file=/etc/tezos/config.json
 --p2p-port=9732
 --rpc-port=8732
 --websocket-address=0.0.0.0:4927
@@ -20,10 +24,6 @@ cat > /etc/tezos/tezedge.conf <<EOM
 --init-sapling-output-params-file=/sapling-output.params
 --tezos-data-dir=/var/tezos/node/data
 --bootstrap-db-path=/var/tezos/node/bootstrap
-
---bootstrap-lookup-address=tezos-baking-node-0.tezos-baking-node
-
---sandbox-patch-context-json-file=/etc/tezos/genesis.json
 --identity-file=/tmp/tezedge/identity.json
 --identity-expected-pow=0
 --log-format=simple
@@ -49,14 +49,9 @@ cat > /etc/tezos/tezedge.conf <<EOM
 --enable-testchain=false
 EOM
 
-# XXXrcd: deprecated?
-# --actions-store-backend=rocksdb
-
-cat > /etc/tezos/genesis.json <<EOM
-{
-  "genesis_pubkey": "edpkuJQjuxBndWiwNRFGndPaJATFVXsiDDyAfE4oHvUtu138w5LYRs"
-}
-EOM
+< /etc/tezos/config.json jq -r '.p2p."bootstrap-peers"[]'	| \
+	tr '\012' ',' | sed s/^/--bootstrap-lookup-address=/	  \
+		>> /etc/tezos/tezedge.conf
 
 #
 # Next we write the current baker account into /etc/tezos/baking-account.
