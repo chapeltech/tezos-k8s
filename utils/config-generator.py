@@ -253,9 +253,11 @@ def fill_in_missing_keys(all_accounts):
             account_values["key"] = sk_b58
             account_values["type"] = "secret"
 
+
 #
 # expose_secret_key() decides if an account needs to have its secret
 # key exposed on the current pod.  It returns the obvious Boolean.
+
 
 def expose_secret_key(account_name):
     if MY_POD_TYPE == "activating":
@@ -275,12 +277,15 @@ def expose_secret_key(account_name):
 # regardless of a remote_signer being present.  E.g. the remote signer
 # needs to have the keys not a URL to itself.
 
+
 def pod_requires_secret_key(account_name):
     return MY_POD_TYPE in ["activating", "signing"]
-    
+
+
 #
 # remote_signer() picks the first signer, if any, that claims to sign
 # for account_name and returns a URL to locate it.
+
 
 def remote_signer(account_name, key):
     for k, v in SIGNERS.items():
@@ -325,7 +330,7 @@ def import_keys(all_accounts):
                 try:
                     sk = "unencrypted:" + key.secret_key()
                 except ValueError:
-                    raise("Secret key required but not provided.")
+                    raise ("Secret key required but not provided.")
 
                 print("    Appending secret key")
             else:
