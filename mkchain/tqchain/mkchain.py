@@ -296,9 +296,7 @@ def main():
         invite_nodes = {
             REGULAR_NODE_NAME: {
                 "storage_size": "15Gi",
-                "instances": [
-                    node_config(REGULAR_NODE_NAME, 0, is_baker=False)
-                ],
+                "instances": [node_config(REGULAR_NODE_NAME, 0, is_baker=False)],
             },
             BAKER_NODE_NAME: None,
         }
