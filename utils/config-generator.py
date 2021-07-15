@@ -328,7 +328,9 @@ def import_keys(all_accounts):
                     raise("Secret key required but not provided.")
 
                 print("    Appending secret key")
-                secret_keys.append({"name": account_name, "value": sk})
+            else:
+                print("    Using remote signer: " + sk)
+            secret_keys.append({"name": account_name, "value": sk})
 
         pk_b58 = key.public_key()
         print(f"    Appending public key: {pk_b58}")
