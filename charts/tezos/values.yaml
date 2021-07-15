@@ -16,14 +16,6 @@ tezos_k8s_images:
   zerotier: tezos-k8s-zerotier:dev
 
 # Properties that are templated in Helm template files
-baker_statefulset: # charts/tezos/templates/baker.yaml
-  name: tezos-baking-node
-  pod_type: baking
-  storage_size: 15Gi
-regular_node_statefulset: # charts/tezos/templates/node.yaml
-  name: tezos-node
-  pod_type: regular
-  storage_size: 15Gi
 tzkt_indexer_statefulset:
   name: tzkt-indexer
   storageClassName: ""
