@@ -294,8 +294,13 @@ def main():
         "zerotier_config", {}
     ).get("zerotier_network"):
         invite_nodes = {
-            REGULAR_NODE_TYPE: {f"{REGULAR_NODE_NAME}-0": regular_node_config},
-            BAKER_NODE_TYPE: {},
+            REGULAR_NODE_NAME: {
+                "storage_size": "15Gi",
+                "instances": [
+                    node_config(REGULAR_NODE_NAME, 0, is_baker=False)
+                ],
+            },
+            BAKER_NODE_NAME: None,
         }
         invitation_constants = {
             "is_invitation": True,
