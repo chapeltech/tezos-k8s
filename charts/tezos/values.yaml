@@ -112,7 +112,7 @@ accounts: {}
 #       - {}
 
 nodes:
-  tezos-regular-node:
+  tezos-node:
     storage_size: 15Gi
     instances:
       - is_bootstrap_node: false
